@@ -1,0 +1,120 @@
+/* Paleta de colores */
+:root {
+  --azul-primario: #3269c0;
+  --blanco: #ffffff;
+  --gris-claro: #4b4b4b;
+  --texto-oscuro: #1a1a1a;
+  --amarillo: #ebdc0c;
+}
+
+/*  NAVBAR  */
+nav {
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  background: none;
+}
+
+/* Menú centrado */
+.nav__links {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: 3rem;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.nav__links a {
+  position: relative;
+  padding-bottom: 5px;
+  color: var(--blanco);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* Subrayado animado */
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--amarillo);
+  transition: 0.3s;
+}
+
+.nav__links a:hover::after {
+  width: 100%;
+}
+
+/* Botón de reservar */
+.nav__btn {
+  display: block;
+}
+
+/*  HEADER */
+.header {
+  background-image: linear-gradient(
+      rgba(0,0,0,0.5),
+      rgba(0,0,0,0.5)
+    ),
+    url("../assets/header1.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.section__container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 6rem 1rem;
+  text-align: center;
+}
+
+.header__container {
+  padding-top: 10rem;
+}
+
+.header__container p {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--blanco);
+}
+
+.header__container h1 {
+  font-size: 3rem;
+  line-height: 3.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--blanco);
+}
+
+/*  LOGO */
+.logo a {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.logo a:hover {
+  opacity: 0.8;
+}
