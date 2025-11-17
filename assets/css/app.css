@@ -1,120 +1,140 @@
-/* Paleta de colores */
-:root {
-  --azul-primario: #3269c0;
-  --blanco: #ffffff;
-  --gris-claro: #4b4b4b;
-  --texto-oscuro: #1a1a1a;
-  --amarillo: #ebdc0c;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/*  NAVBAR  */
-nav {
-  padding: 2rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
+body{
+    font-family: Poppins, sans-serif;
 }
 
-.nav__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0;
-  background: none;
+.top-bar{
+    background:#1a2b49;
+    padding:12px 0;
 }
 
-/* Menú centrado */
-.nav__links {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  gap: 3rem;
-  padding: 0;
-  margin: 0;
-  background: none;
+.top-bar__container{
+    max-width:1400px;
+    margin:auto;
+    padding:0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.nav__links a {
-  position: relative;
-  padding-bottom: 5px;
-  color: var(--blanco);
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: 0.3s;
+.top-bar__left{
+    display:flex;
+    align-items:center;
 }
 
-/* Subrayado animado */
-.nav__links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0;
-  background-color: var(--amarillo);
-  transition: 0.3s;
+.logo a{
+    color:white;
+    text-decoration:none;
+    font-size:1.5rem;
+    font-weight:bold;
 }
 
-.nav__links a:hover::after {
-  width: 100%;
+.nav__links{
+    display:flex;
+    list-style:none;
+    gap:30px;
 }
 
-/* Botón de reservar */
-.nav__btn {
-  display: block;
+.nav__links a{
+    color:white;
+    text-decoration:none;
+    font-size:0.9rem;
+    transition:color 0.3s ease;
 }
 
-/*  HEADER */
-.header {
-  background-image: linear-gradient(
-      rgba(0,0,0,0.5),
-      rgba(0,0,0,0.5)
-    ),
-    url("../img/header1.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.nav__links a:hover{
+    color:#ffb700;
 }
 
-.section__container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 6rem 1rem;
-  text-align: center;
+.login-btn{
+    border:1px solid #fff;
+    padding:6px 14px;
+    border-radius:4px;
+    color:white;
+    cursor:pointer;
 }
 
-.header__container {
-  padding-top: 10rem;
+.header{
+    background:
+        url(../img/encabezado.jpeg) center/cover;
+    min-height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    color:#fff;
 }
 
-.header__container p {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: var(--blanco);
+.header__overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(26,43,73,.15);
+    z-index:1;
 }
 
-.header__container h1 {
-  font-size: 3rem;
-  line-height: 3.8rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--blanco);
+.header__content{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2rem;
+    text-align:center;
 }
 
-/*  LOGO */
-.logo a {
-  font-family: "Poppins", sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--azul-primario);
-  text-decoration: none;
-  transition: 0.3s;
+.header__text{
+    order:-1;
 }
 
-.logo a:hover {
-  opacity: 0.8;
+.header__subtitle{
+    font-size:2rem;
+    font-weight:bold;
+    text-shadow:2px 2px 4px rgba(0,0,0,.5);
+}
+
+.search-form{
+    display:flex;
+    gap:1rem;
+    background:#fff;
+    padding:1.5rem;
+    border-radius:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.search-field{
+    display:flex;
+    flex-direction:column;
+}
+
+.search-field label{
+    font-size:0.85rem;
+    color:#333;
+    margin-bottom:0.5rem;
+    font-weight:500;
+}
+
+.search-input{
+    border:1px solid #d9d9d9;
+    padding:.7rem;
+    border-radius:4px;
+}
+
+.search-btn{
+    background:#003580;
+    color:#fff;
+    border:none;
+    padding:.8rem 2rem;
+    border-radius:4px;
+    cursor:pointer;
+    align-self:flex-end;
+}
+
+.search-btn:hover{
+    background:#002147;
 }
