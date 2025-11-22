@@ -1,0 +1,100 @@
+/* Estilos para páginas de autenticación (login / register) */
+:root{
+  --card-bg: #ffffff;
+  --accent: #007BFF;
+  --accent-dark: #0056b3;
+  --muted: #6b7280;
+}
+
+.page-center{
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background: linear-gradient(180deg, #f7fbff 0%, #f2f6fb 100%);
+}
+
+.auth-card{
+  width: 420px;
+  max-width: 95%;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+.auth-panel h2{
+  margin: 0 0 14px 0;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.auth-panel form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.auth-panel input{
+  padding: 10px 12px;
+  border: 1px solid #e6edf3;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #fbfeff;
+}
+
+.auth-panel button{
+  padding: 11px 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.auth-panel button:hover{ background: var(--accent-dark); }
+
+.switch{
+  margin-top: 12px;
+  text-align: center;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.auth-messages{
+  min-height: 20px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+@media (max-width: 480px){
+  .auth-card{ padding: 20px; }
+  .auth-panel h2{ font-size: 18px; }
+}
+
+/* Profile icon in top bar */
+.top-bar__right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.profile-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background: linear-gradient(135deg,#6b73ff 0%, #000dff 100%);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  text-decoration:none;
+}
+.profile-icon img{ width:100%; height:100%; border-radius:50%; display:block; }
+
