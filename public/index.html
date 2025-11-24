@@ -1,46 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel.com - Reserva tu hospedaje</title>
-    <link rel="stylesheet" href="../assets/css/app.css">
-</head>
-<body>
-<div class="top-bar">
-    <div class="top-bar__container">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+      Hotel.com - Reserva tu hospedaje
+    </title>
+    <link href="../assets/css/app2.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="../assets/img/encabezado.jpeg"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+      <div class="top-bar__container">
         <div class="top-bar__left">
-            <div class="logo"><a href="#">Hotel.com</a></div>
+          <div class="logo">
+            Hotel.com
+          </div>
         </div>
-        <ul class="nav__links">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#reservaciones">Mis reservaciones </a></li>
-            <li><a href="#loging">Iniciar sesión</a></li>
-        </ul>
-    </div>
-</div>
-
-<header class="header">
-    <div class="header__overlay"></div>
-    <div class="header__content">
-      <div class="search-form">
-    <div class="search-field">
-        <label>Entrada</label>
-        <input type="date" class="search-input">
-    </div>
-    <div class="search-field">
-        <label>Salida</label>
-        <input type="date" class="search-input">
+        <div class="top-bar__right">
+          <a class="top-bar__link" href="#">
+            Eres profesional
+          </a>
+          <a class="top-bar__link" href="#">
+            Viaja seguro
+          </a>
+          <a class="login-btn" href="#">
+            Iniciar sesión
+          </a>
+        </div>
+      </div>
     </div>
 
-    <button class="search-btn">Buscar</button>
-</div>
-
+    <!-- HEADER CON BÚSQUEDA -->
+    <header class="header">
+      <div class="header__overlay">
+      </div>
+      <div class="header__content">
         <div class="header__text">
-            <p class="header__subtitle">Tu siguiente aventura comienza aquí</p>
+          <p class="header__subtitle">
+            Tu siguiente aventura comienza aquí
+          </p>
         </div>
-    </div>
-</header>
 
-</body>
+        <!-- FORMULARIO DE BÚSQUEDA -->
+        <div class="search-form">
+          <div class="search-field">
+            <label>
+              ¿A dónde quieres ir?
+            </label>
+            <input
+              class="search-input"
+              placeholder="Destino"
+              type="text"
+            />
+          </div>
+          <div class="search-field">
+            <label>
+              Entrada
+            </label>
+            <input
+              class="search-input"
+              type="date"
+            />
+          </div>
+          <div class="search-field">
+            <label>
+              Salida
+            </label>
+            <input
+              class="search-input"
+              type="date"
+            />
+          </div>
+          <button class="search-btn">
+            Buscar
+          </button>
+        </div>
+
+       
+      </div>
+    </header>
+
+    
+
+    <!-- SECCIÓN DE HOSPEDAJES A TU ESTILO -->
+    <section class="style-section">
+      <div class="section__container">
+        <h2 class="section-title">
+          Hospedajes a tu estilo
+        </h2>
+        <p class="section-subtitle">
+          Precios especiales basados en tus calificaciones anuales
+        </p>
+
+        <div class="style-grid">
+          <div class="style-card">
+            <img
+              alt="Lujo"
+              src="https://via.placeholder.com/250x200?text=Lujo"
+            />
+            <div class="style-card__overlay">
+              <p class="style-label">
+                Lujo
+              </p>
+              <span class="style-price">
+                MXN$2,521
+              </span>
+            </div>
+          </div>
+
+          <div class="style-card">
+            <img
+              alt="Playa"
+              src="https://via.placeholder.com/250x200?text=Playa"
+            />
+            <div class="style-card__overlay">
+              <p class="style-label">
+                Playa
+              </p>
+              <span class="style-price">
+                MXN$3,190
+              </span>
+            </div>
+          </div>
+
+          <div class="style-card">
+            <img
+              alt="Piscinas"
+              src="https://via.placeholder.com/250x200?text=Piscinas"
+            />
+            <div class="style-card__overlay">
+              <p class="style-label">
+                Piscinas
+              </p>
+              <span class="style-price">
+                MXN$3,788
+              </span>
+            </div>
+          </div>
+
+          <div class="style-card">
+            <img
+              alt="Elegancia"
+              src="https://via.placeholder.com/250x200?text=Elegancia"
+            />
+            <div class="style-card__overlay">
+              <p class="style-label">
+                Elegancia
+              </p>
+              <span class="style-price">
+                MXN$2,180
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
