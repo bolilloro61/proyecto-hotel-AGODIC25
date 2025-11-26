@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /* app.css - versión consolidada: elimina redundancias y mantiene la lógica visual */
 
 /* Reset y variables globales */
@@ -432,7 +430,6 @@ body {
 }
 
 
->>>>>>> c646e08f039151205d9a68f1aabe65a1ee1b3e40
 :root {
   --color--primario: #1a2b49;
   --texto--negro: #0c0a09;
@@ -496,8 +493,6 @@ body{
 }
 
 
-<<<<<<< HEAD
-=======
 
 .header{
     background:
@@ -509,7 +504,6 @@ body{
     position:relative;
     color:#fff;
 }
->>>>>>> c646e08f039151205d9a68f1aabe65a1ee1b3e40
 
 .header__overlay{
     position:absolute;
@@ -1081,7 +1075,7 @@ body {
 /* HEADER */
 .header{
     background:
-    url(../img/encabezado.jpeg) center/cover;
+        url(../img/encabezado.jpeg) center/cover;
     min-height:300px;
     display:flex;
     align-items:center;
@@ -1107,6 +1101,9 @@ body {
     text-align:center;
 }
 
+.header__text{
+    order:-1;
+}
 
 .header__subtitle{
     font-size:2rem;
@@ -1157,92 +1154,6 @@ body {
 }
 
 
-<<<<<<< HEAD
-
-.section__container {
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 5rem 1rem;
-}
-
-
-
-.section__header {
-  max-width: 600px;
-  margin-bottom: 1rem;
-  font-size: 2.5rem;
-  font-weight: 600;
-  line-height: 3rem;
-  color: var(--texto--negro);
-}
-
-
-.room__grid {
-  margin-top: 4rem;
-  display: grid;
-  gap: 1rem;
-}
-
-
-.room__card {
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.room__card__image img{
-  width: 100%;
-  height: 250px;     
-  object-fit: cover; 
-  object-position: center;
-  display: block;
-
-}
-
-
-.room__card__details {
-  padding: 1rem;
-}
-
-.room__card h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--texto--negro);
-}
-
-.room__card p {
-  margin-bottom: 0.5rem;
-  color: var(--text-light);
-}
-
-.btn {
-  padding: 0.75rem 1.5rem;
-  margin-top: 1rem; 
-  outline: none;
-  border: none;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--blanco);
-  background-color: var(--color--primario);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  color: #ffb700 ;
-}
-
-
-@media (width > 768px) {
-   .room__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-}
-=======
 .search-btn:active {
   transform: scale(0.98);
 }
@@ -1949,5 +1860,3 @@ body {
     max-height: 140px !important;
   }
 }
-
->>>>>>> c646e08f039151205d9a68f1aabe65a1ee1b3e40
