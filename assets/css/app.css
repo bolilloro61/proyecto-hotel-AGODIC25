@@ -1714,3 +1714,150 @@ body {
 .carousel .offer-card:hover img {
   transform: scale(1.08);
 }
+
+/* OVERRIDE: Forzar carrusel con tarjetas del mismo tamaño */
+/* Use flexbox so each card gets identical width, images keep 16:9 via aspect-ratio */
+.carousel {
+  display: flex !important;
+  gap: 1.5rem !important;
+  overflow-x: auto !important;
+  white-space: normal !important;
+  padding-bottom: 1rem !important;
+}
+
+.carousel .offer-card {
+  flex: 0 0 300px !important; /* fixed width for uniform cards */
+  max-width: 300px !important;
+  display: block !important;
+  vertical-align: top !important;
+}
+
+.carousel .offer-card__image {
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  overflow: hidden !important;
+}
+
+.carousel .offer-card__image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+/* ensure consistent spacing on small screens */
+@media (max-width: 768px) {
+  .carousel .offer-card { flex: 0 0 240px !important; max-width: 240px !important; }
+  .carousel { gap: 1rem !important; }
+}
+
+
+/* --------------------------- */
+/* UNIFICAR IMÁGENES (16:9 como Playa Delfines)
+   - Todas las tarjetas usan object-fit:cover
+   - Contenedores usan aspect-ratio 16/9 para recorte consistente
+   - Reglas colocadas al final para sobreescribir definiciones previas
+*/
+.offer-card__image,
+.room__card__image,
+.style-card > img,
+.gallery-card,
+.carousel .offer-card__image {
+  overflow: hidden;
+  display: block;
+  /* preferimos aspect-ratio cuando está disponible */
+  aspect-ratio: 16 / 9;
+}
+
+.offer-card__image img,
+.room__card__image img,
+.style-card img,
+.gallery-card img,
+.carousel .offer-card__image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* Ajustes responsivos: menos altura en pantallas pequeñas */
+@media (max-width: 768px) {
+  .offer-card__image,
+  .room__card__image,
+  .carousel .offer-card__image { aspect-ratio: 4 / 3; }
+  .style-card { height: 140px; }
+}
+
+/* Compatibilidad para navegadores sin soporte aspect-ratio: límites de altura */
+@supports not (aspect-ratio: 16/9) {
+  .offer-card__image,
+  .carousel .offer-card__image { height: 160px; }
+  .room__card__image img { height: 200px; }
+  @media (max-width: 768px) {
+    .offer-card__image,
+    .carousel .offer-card__image { height: 120px; }
+    .room__card__image img { height: 150px; }
+  }
+}
+
+
+/* CORRECCIÓN: asegurar que las imágenes de las tarjetas muestren correctamente */
+.carousel .offer-card { vertical-align: top; }
+.offer-card__image, .carousel .offer-card__image { height: 160px; overflow: hidden; display:block; }
+.offer-card__image img, .carousel .offer-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  -o-object-fit: cover;
+}
+
+/* Pequeña mejora: evitar que imágenes con nombres con espacios colapsen el layout */
+.offer-card__image img[src] { visibility: visible; }
+
+/* Ajustes adicionales para reducir tamaños que se ven muy grandes */
+/* Se colocan aquí para sobrescribir reglas anteriores y mantener consistencia */
+.room__card__image img { height: 200px; }
+.offer-card__image, .carousel .offer-card__image { height: 160px; }
+
+@media (max-width: 768px) {
+  .offer-card__image, .carousel .offer-card__image { height: 120px; }
+  .room__card__image img { height: 150px; }
+}
+
+@media (min-width: 1200px) {
+  .offer-card__image, .carousel .offer-card__image { height: 180px; }
+  .room__card__image img { height: 220px; }
+}
+
+/* FIX ESPECÍFICO: offers-section - forzar tamaño uniforme de imágenes */
+.offers-section .offer-card__image,
+.offers-section .carousel .offer-card__image {
+  width: 100% !important;
+  overflow: hidden !important;
+  display: block !important;
+  aspect-ratio: 16 / 9 !important;
+}
+.offers-section .offer-card__image img,
+.offers-section .carousel .offer-card__image img {
+  width: 100% !important;
+  height: 180px !important;
+  max-height: 180px !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+@media (max-width: 768px) {
+  .offers-section .offer-card__image img,
+  .offers-section .carousel .offer-card__image img {
+    height: 140px !important;
+    max-height: 140px !important;
+  }
+}
+
