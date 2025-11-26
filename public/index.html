@@ -6,7 +6,7 @@
     <title>
       Hotel.com - Reserva tu hospedaje
     </title>
-    <link href="../assets/css/app3.css" rel="stylesheet" />
+    <link href="../assets/css/app.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -19,9 +19,9 @@
     <div class="top-bar">
       <div class="top-bar__container">
         <div class="top-bar__left">
-          <div class="logo">
+          <a class="logo"  href="#">
             Hotel.com
-          </div>
+          </a>
         </div>
         <div class="top-bar__right">
           <a class="top-bar__link" href="#">
@@ -30,7 +30,7 @@
           <a class="top-bar__link" href="#">
             Viaja seguro
           </a>
-          <a class="login-btn" href="#">
+          <a id="auth-btn" class="login-btn" href="login.html">
             Iniciar sesión
           </a>
         </div>
@@ -83,84 +83,377 @@
           </button>
         </div>
 
-        
+       <!-- PROMOCIÓN SIDEBAR -->
+        <div class="promo-box">
+          <p class="promo-title">Registrate y ahorra hasta el 10%</p>
+          <p class="promo-text">En cualquier habitacion sencilla o doble.</p>
+          <a class="promo-btn" href="login.html#register">Regístrate gratis</a>
+        </div>
       </div>
     </header>
 
-    
-    <!-- SECCIÓN DE ÚLTIMAS OFERTAS -->
-    <section class="last-offers-section">
-      <div class="section__container">
-        <div class="last-offers-header">
-          <div>
-            <h2 class="section-title">
-              Las ofertas de última hora llegaron justo a tiempo
-            </h2>
-            <p class="section-subtitle">
-              Pura velocidad. Hoteles con descuentos de hasta 15 - 18 horas.
-            </p>
-          </div>
-          <a class="view-all-btn" href="#">
-            Ver todas las propiedades
+<!-- ========================================= -->
+<!-- SECCIÓN DE HABITACIONES AÑADIDA AQUÍ -->
+<!-- ========================================= -->
+<section class="section__container room__container">
+    <p class="section__subheader">NUESTRAS HABITACIONES</p>
+    <h2 class="section__header">Relajese con Lujo y Estilo.</h2>
+
+    <div class="room__grid">
+
+        <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion1.jpg" alt="room" />
+
+            </div>
+            <div class="room__card__details">
+                <h4>Vista al jardín tropical</h4>
+                <p>Relájese en una habitación rodeada de la tranquilidad y belleza de exuberosos jardines.</p>
+                <h5>Desde <span>$299 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+        <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion2.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+        <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion3.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Habitación ejecutiva</h4>
+                <p>Confort y funcionalidad para viajeros de negocio, equipada con escritorio y WiFi de alta velocidad.</p>
+                <h5>Desde <span>$249 Por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion4.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion5.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion6.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion7.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion8.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+         <div class="room__card">
+            <div class="room__card__image">
+                <img src="../assets/img/habitacion9.jpg" alt="room" />
+            </div>
+            <div class="room__card__details">
+                <h4>Suite panorámica de lujo</h4>
+                <p>Experimente una estadía inolvidable con vistas de 180° y comodidades premium en cada rincón.</p>
+                <h5>Desde <span>$199 por noche</span></h5>
+                <button class="btn">Reservar Ahora</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+     <!-- SECCIÓN ROJA DE BENEFICIOS -->
+    <section class="benefits-section">
+      <div class="benefits-container">
+        <div class="benefit-item">
+          <h3>
+            Obtén recompensas al hopedarte con nosotros
+          </h3>
+          <p>
+            Acumula 10 noches y canjea una estancia asociada.
+          </p>
+          <a class="benefit-link" href="#">
+            Saber más
           </a>
         </div>
 
-        <div class="gallery-grid">
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+1"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$1,335
-              </span>
-            </div>
-          </div>
+        <div class="benefit-item">
+          <h3>
+            Hospedaje All Inclusive
+          </h3>
+          <p>
+            Disfruta de tus vacaciones sin preocupaciones.
+          </p>
+          <a class="benefit-link" href="#">
+            Ver hospedajes
+          </a>
+        </div>
 
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+2"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$2,238
-              </span>
-            </div>
-          </div>
-
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+3"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$2,423
-              </span>
-            </div>
-          </div>
+        <div class="benefit-item">
+          <h3>
+            Sabemos que los planes cambian
+          </h3>
+          <p>
+            Aprovecha la cancelación gratuita hasta 48 horas antes del check-in.
+          </p>
+          <a class="benefit-link" href="#">
+            Buscar
+          </a>
         </div>
       </div>
     </section>
+
+     <!-- DESCRIPCIÓN GENERAL DEL HOTEL -->
+  <section class="style-section">
+    <div class="section__container">
+      <h2 class="section-title">Tu escape perfecto frente al mar</h2>
+      <p class="section-subtitle">Comodidad, lujo y una experiencia inolvidable.</p>
+    </div>
+    <!-- SECCIÓN DE SERVICIOS DEL HOTEL -->
+  <section class="benefits-section" style="padding:3rem 0; background:#f5f5f5; color:#1a1a1a;">
+    <div class="section__container" style="text-align:center;">
+      <h2 class="section-title" style="margin-bottom:1rem;">Servicios que ofrecemos</h2>
+      <p class="section-subtitle" style="margin-bottom:2rem;">Todo lo que necesitas para una estancia perfecta</p>
+
+      <div class="benefits-container" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem;">
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/restaurante.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Restaurante</h3>
+            <p>Cocina internacional con vista al mar.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/piscina.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Piscina</h3>
+            <p>Piscina climatizada con áreas para todos.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/bar.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Bar</h3>
+            <p>Cocteles exclusivos junto al mar.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/spa.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Spa</h3>
+            <p>Masajes, sauna y tratamientos relajantes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVA SECCIÓN: LUGARES DE INTERÉS CERCANOS -->
+  <section class="offers-section" style="position:relative; overflow:hidden;">
+    <div class="section__container">
+      <div class="offer-header">
+        <div class="offer-header__content">
+          <h2>Lugares de interés cerca del hotel</h2>
+          <p>Explora los mejores atractivos que rodean nuestra propiedad.</p>
+        </div>
+      </div>
+
+      <!-- CARRUSEL AUTOMÁTICO -->
+      <div class="carousel" id="carousel" style="width:100%; display:flex; gap:1.5rem; overflow-x:auto; scroll-behavior:smooth; white-space:nowrap; padding-bottom:1rem;">
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+         <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+         <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+    <script src="../assets/js/app.js"></script>    
+    <script src="../assets/js/session.js"></script>
   </body>
 </html>
