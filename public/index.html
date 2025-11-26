@@ -1,166 +1,259 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-      Hotel.com - Reserva tu hospedaje
-    </title>
-    <link href="../assets/css/app3.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="../assets/img/encabezado.jpeg"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- BARRA SUPERIOR -->
-    <div class="top-bar">
-      <div class="top-bar__container">
-        <div class="top-bar__left">
-          <div class="logo">
-            Hotel.com
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Paraíso del Mar - Página Oficial</title>
+  <link rel="stylesheet" href="../assets/css/app.css" />
+</head>
+<body>
+  <!-- BARRA SUPERIOR -->
+  <div class="top-bar">
+    <div class="top-bar__container">
+      <div class="logo">Hotel.com</div>
+      <div class="top-bar__right">
+        <a class="top-bar__link" href="#">Servicios</a>
+        <a class="top-bar__link" href="#">Contacto</a>
+        <a class="login-btn" href="#">Iniciar sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header__overlay"></div>
+    <div class="header__content">
+      <div class="header__text">
+        <p class="header__subtitle">Bienvenido al Hotel</p>
+      </div>
+
+      <!-- FORMULARIO DE RESERVA -->
+      <div class="search-form">
+        <div class="search-field">
+          <label>Entrada</label>
+          <input class="search-input" type="date" />
+        </div>
+        <div class="search-field">
+          <label>Salida</label>
+          <input class="search-input" type="date" />
+        </div>
+        <button class="search-btn">Reservar</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DESCRIPCIÓN GENERAL DEL HOTEL -->
+  <section class="style-section">
+    <div class="section__container">
+      <h2 class="section-title">Tu escape perfecto frente al mar</h2>
+      <p class="section-subtitle">Comodidad, lujo y una experiencia inolvidable.</p>
+    </div>
+    <!-- SECCIÓN DE SERVICIOS DEL HOTEL -->
+  <section class="benefits-section" style="padding:3rem 0; background:#f5f5f5; color:#1a1a1a;">
+    <div class="section__container" style="text-align:center;">
+      <h2 class="section-title" style="margin-bottom:1rem;">Servicios que ofrecemos</h2>
+      <p class="section-subtitle" style="margin-bottom:2rem;">Todo lo que necesitas para una estancia perfecta</p>
+
+      <div class="benefits-container" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem;">
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/restaurante.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Restaurante</h3>
+            <p>Cocina internacional con vista al mar.</p>
           </div>
         </div>
-        <div class="top-bar__right">
-          <a class="top-bar__link" href="#">
-            Eres profesional
-          </a>
-          <a class="top-bar__link" href="#">
-            Viaja seguro
-          </a>
-          <a class="login-btn" href="#">
-            Iniciar sesión
-          </a>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/piscina.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Piscina</h3>
+            <p>Piscina climatizada con áreas para todos.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/bar.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Bar</h3>
+            <p>Cocteles exclusivos junto al mar.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/spa.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Spa</h3>
+            <p>Masajes, sauna y tratamientos relajantes.</p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- HEADER CON BÚSQUEDA -->
-    <header class="header">
-      <div class="header__overlay">
-      </div>
-      <div class="header__content">
-        <div class="header__text">
-          <p class="header__subtitle">
-            Tu siguiente aventura comienza aquí
-          </p>
-        </div>
-
-        <!-- FORMULARIO DE BÚSQUEDA -->
-        <div class="search-form">
-          <div class="search-field">
-            <label>
-              ¿A dónde quieres ir?
-            </label>
-            <input
-              class="search-input"
-              placeholder="Destino"
-              type="text"
-            />
-          </div>
-          <div class="search-field">
-            <label>
-              Entrada
-            </label>
-            <input
-              class="search-input"
-              type="date"
-            />
-          </div>
-          <div class="search-field">
-            <label>
-              Salida
-            </label>
-            <input
-              class="search-input"
-              type="date"
-            />
-          </div>
-          <button class="search-btn">
-            Buscar
-          </button>
-        </div>
-
-        
-      </div>
-    </header>
-
-    
-    <!-- SECCIÓN DE ÚLTIMAS OFERTAS -->
-    <section class="last-offers-section">
-      <div class="section__container">
-        <div class="last-offers-header">
-          <div>
-            <h2 class="section-title">
-              Las ofertas de última hora llegaron justo a tiempo
-            </h2>
-            <p class="section-subtitle">
-              Pura velocidad. Hoteles con descuentos de hasta 15 - 18 horas.
-            </p>
-          </div>
-          <a class="view-all-btn" href="#">
-            Ver todas las propiedades
-          </a>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+1"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$1,335
-              </span>
-            </div>
-          </div>
-
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+2"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$2,238
-              </span>
-            </div>
-          </div>
-
-          <div class="gallery-card">
-            <img
-              alt="Cancun"
-              src="https://via.placeholder.com/250x150?text=Cancun+3"
-            />
-            <div class="gallery-card__info">
-              <p class="gallery-city">
-                Cancun
-              </p>
-              <p class="gallery-location">
-                Quintana Roo, México
-              </p>
-              <span class="gallery-price">
-                MXN$2,423
-              </span>
-            </div>
-          </div>
+  <!-- NUEVA SECCIÓN: LUGARES DE INTERÉS CERCANOS -->
+  <section class="offers-section" style="position:relative; overflow:hidden;">
+    <div class="section__container">
+      <div class="offer-header">
+        <div class="offer-header__content">
+          <h2>Lugares de interés cerca del hotel</h2>
+          <p>Explora los mejores atractivos que rodean nuestra propiedad.</p>
         </div>
       </div>
-    </section>
-  </body>
-</html>
+
+      <!-- CARRUSEL AUTOMÁTICO -->
+      <div class="carousel" id="carousel" style="width:100%; display:flex; gap:1.5rem; overflow-x:auto; scroll-behavior:smooth; white-space:nowrap; padding-bottom:1rem;">
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+         <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+         <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </div>
+
+        <div class="offer-card" style="display:inline-block; min-width:280px;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" />
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    let scrollAmount = 0;
+
+    function autoScroll() {
+      if (scrollAmount <= carousel.scrollWidth - carousel.clientWidth) {
+        carousel.scrollBy({ left: 1, behavior: 'smooth' });
+        scrollAmount++;
+      } else {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        scrollAmount = 0;
+      }
+    }
+
+    setInterval(autoScroll, 20);
+  </script>
+
+ 
