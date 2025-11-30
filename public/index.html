@@ -19,14 +19,21 @@
     <div class="top-bar">
       <div class="top-bar__container">
         <div class="top-bar__left">
-          <a class="logo" href="#">
+          <a class="logo"  href="#">
             Hotel.com
           </a>
         </div>
         <div class="top-bar__right">
-          <a class="top-bar__link" href="#">
-            Eres profesional
-          </a>
+          <div id="admin-tabs" style="display: none;">
+            <a class="top-bar__link" href="admin.html">
+              Dashboard Admin
+            </a>
+          </div>
+          <div id="recep-tabs" style="display: none;">
+            <a class="top-bar__link" href="recepcionista.html">
+              Panel de Recepción
+            </a>
+          </div>
           <a class="top-bar__link" href="#">
             Viaja seguro
           </a>
@@ -52,12 +59,15 @@
         <div class="search-form">
           <div class="search-field">
             <label>
-              ¿A dónde quieres ir?
+              Número de personas
             </label>
             <input
               class="search-input"
-              placeholder="Destino"
-              type="text"
+              id="capacidad"
+              placeholder="Ej: 2"
+              type="number"
+              min="1"
+              max="10"
             />
           </div>
           <div class="search-field">
@@ -66,6 +76,7 @@
             </label>
             <input
               class="search-input"
+              id="fecha_entrada"
               type="date"
             />
           </div>
@@ -75,25 +86,40 @@
             </label>
             <input
               class="search-input"
+              id="fecha_salida"
               type="date"
             />
           </div>
-          <button class="search-btn">
+          <button class="search-btn" id="btn-filtrar">
             Buscar
           </button>
         </div>
 
-        <!-- PROMOCIÓN SIDEBAR -->
+       <!-- PROMOCIÓN SIDEBAR -->
         <div class="promo-box">
-          <p class="promo-title">Inicia sesión y ahorra hasta el 10%</p>
-          <p class="promo-text">En cualquier habitacion sencilla o doble.</p>
+          <p class="promo-title">Registrate y reserva ahora mismo</p>
+          <p class="promo-text">Disfruta de los mejores precios en hospedaje</p>
           <a class="promo-btn" href="login.html#register">Regístrate gratis</a>
         </div>
       </div>
     </header>
 
+<!-- ========================================= -->
+<!-- SECCIÓN DE HABITACIONES - CARGADAS DESDE BD -->
+<!-- ========================================= -->
+<section class="section__container room__container">
+    <p class="section__subheader">NUESTRAS HABITACIONES</p>
+    <h2 class="section__header">Relajese con Lujo y Estilo.</h2>
 
-    <!-- SECCIÓN ROJA DE BENEFICIOS -->
+    <div class="room__grid" id="rooms">
+      <!-- Las habitaciones se cargan dinámicamente desde la BD via JavaScript -->
+    </div>
+</section>
+<div class="section__container">
+      <h2 class="section-title">Tu escape perfecto frente al mar</h2>
+      <p class="section-subtitle">Comodidad, lujo y una experiencia inolvidable.</p>
+    </div>
+     <!-- SECCIÓN ROJA DE BENEFICIOS -->
     <section class="benefits-section">
       <div class="benefits-container">
         <div class="benefit-item">
@@ -103,7 +129,7 @@
           <p>
             Acumula 10 noches y canjea una estancia asociada.
           </p>
-          <a class="benefit-link" href="#">
+          <a class="benefit-link" href="#" onclick="abrirModalBeneficio('recompensas'); return false;">
             Saber más
           </a>
         </div>
@@ -115,7 +141,7 @@
           <p>
             Disfruta de tus vacaciones sin preocupaciones.
           </p>
-          <a class="benefit-link" href="#">
+          <a class="benefit-link" href="#" onclick="abrirModalBeneficio('allInclusive'); return false;">
             Ver hospedajes
           </a>
         </div>
@@ -127,12 +153,237 @@
           <p>
             Aprovecha la cancelación gratuita hasta 48 horas antes del check-in.
           </p>
-          <a class="benefit-link" href="#">
+          <a class="benefit-link" href="#" onclick="abrirModalBeneficio('cancelacion'); return false;">
             Buscar
           </a>
         </div>
       </div>
     </section>
+
+     <!-- DESCRIPCIÓN GENERAL DEL HOTEL -->
+  <section class="style-section">
+    
+    <!-- SECCIÓN DE SERVICIOS DEL HOTEL -->
+  <section class="benefits-section" style="padding:3rem 0; background:#f5f5f5; color:#1a1a1a;">
+    <div class="section__container" style="text-align:center;">
+      <h2 class="section-title" style="margin-bottom:1rem;">Servicios que ofrecemos</h2>
+      <p class="section-subtitle" style="margin-bottom:2rem;">Todo lo que necesitas para una estancia perfecta</p>
+
+      <div class="benefits-container" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem;">
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/restaurante.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Restaurante</h3>
+            <p>Cocina internacional con vista al mar.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/piscina.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Piscina</h3>
+            <p>Piscina climatizada con áreas para todos.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/bar.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Bar</h3>
+            <p>Cocteles exclusivos junto al mar.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item service-card" style="background:white; padding:0; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="height:150px; background:url('../assets/img/spa.jpg') center/cover;"></div>
+          <div style="padding:1rem;">
+            <h3>Spa</h3>
+            <p>Masajes, sauna y tratamientos relajantes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVA SECCIÓN: LUGARES DE INTERÉS CERCANOS -->
+  <section class="offers-section" style="position:relative; overflow:hidden;">
+    <div class="section__container">
+      <div class="offer-header">
+        <div class="offer-header__content">
+          <h2>Lugares de interés cerca del hotel.</h2>
+          <p>Explora los mejores atractivos que rodean nuestra propiedad.</p>
+        </div>
+      </div>
+
+      <!-- CARRUSEL AUTOMÁTICO -->
+      <div class="carousel" id="carousel" style="width:100%; display:flex; gap:1.5rem; overflow-x:auto; scroll-behavior:smooth; white-space:nowrap; padding-bottom:1rem;">
+
+        <a href="https://www.google.com/maps/search/Playa+Delfines+Cancun" target="_blank" class="offer-card" data-location="Playa Delfines" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Museo+Maya+de+Cancun" target="_blank" class="offer-card" data-location="Museo Maya" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Zona+Arqueologica+El+Rey+Cancun" target="_blank" class="offer-card" data-location="Zona Arqueologica El Rey" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Centro+Comercial+La+Isla+Cancun" target="_blank" class="offer-card" data-location="Centro La Isla" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </a>
+
+         <a href="https://www.google.com/maps/search/Playa+Delfines+Cancun" target="_blank" class="offer-card" data-location="Playa Delfines" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Museo+Maya+de+Cancun" target="_blank" class="offer-card" data-location="Museo Maya" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Zona+Arqueologica+El+Rey+Cancun" target="_blank" class="offer-card" data-location="Zona Arqueologica El Rey" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Centro+Comercial+La+Isla+Cancun" target="_blank" class="offer-card" data-location="Centro La Isla" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </a>
+
+         <a href="https://www.google.com/maps/search/Playa+Delfines+Cancun" target="_blank" class="offer-card" data-location="Playa Delfines" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/playa delfines.jpg" alt="Playa Delfines" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Playa Delfines</h3>
+            <p class="location">A solo 2 km del hotel</p>
+            <p class="rating">⭐ Hermosa playa pública</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Museo+Maya+de+Cancun" target="_blank" class="offer-card" data-location="Museo Maya" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/museo maya.jpg" alt="Museo Maya" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Museo Maya de Cancún</h3>
+            <p class="location">A 1.2 km del hotel</p>
+            <p class="rating">⭐ Cultura e historia</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Zona+Arqueologica+El+Rey+Cancun" target="_blank" class="offer-card" data-location="Zona Arqueologica El Rey" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/zona_arqueologica.jpg" alt="Zona Arqueológica El Rey" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Zona Arqueológica El Rey</h3>
+            <p class="location">A 1.5 km del hotel</p>
+            <p class="rating">⭐ Sitio arqueológico</p>
+          </div>
+        </a>
+
+        <a href="https://www.google.com/maps/search/Centro+Comercial+La+Isla+Cancun" target="_blank" class="offer-card" data-location="Centro La Isla" style="display:inline-block; min-width:280px; text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="offer-card__image">
+            <img src="../assets/img/centro_isla.jpg" alt="Centro Comercial La Isla" style="width:100%;"/>
+          </div>
+          <div class="offer-card__content">
+            <h3>Centro Comercial La Isla</h3>
+            <p class="location">A 3 km del hotel</p>
+            <p class="rating">⭐ Compras y entretenimiento</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL DE BENEFICIOS -->
+  <div id="modal-beneficio" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center;">
+    <div style="background: white; border-radius: 8px; padding: 2rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 id="modal-titulo" style="margin: 0; color: #1a1a1a;">Beneficio</h2>
+        <button onclick="cerrarModalBeneficio()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999;">✕</button>
+      </div>
+      <div id="modal-contenido" style="color: #666; line-height: 1.6;">
+        <!-- Contenido dinámico -->
+      </div>
+      <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end;">
+        <button onclick="cerrarModalBeneficio()" style="padding: 0.75rem 1.5rem; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; color: #333;">Cerrar</button>
+        <button onclick="irAReserva()" style="padding: 0.75rem 1.5rem; background: #c41e3a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Reservar Ahora</button>
+      </div>
+    </div>
+  </div>
+
+    <script src="../assets/js/app.js"></script>    
     <script src="../assets/js/session.js"></script>
+    <script>
+      // Debug: mostrar en la página si hay errores
+      window.addEventListener('error', (e) => {
+        console.error('Global error:', e);
+        const debug = document.querySelector('[data-debug]') || document.body;
+        const msg = document.createElement('div');
+        msg.style.cssText = 'position:fixed;top:0;left:0;background:red;color:white;padding:20px;z-index:9999;max-width:500px;overflow:auto;';
+        msg.textContent = 'Error: ' + (e.message || e);
+        debug.appendChild(msg);
+      });
+      console.log('página cargada, esperando DOM...');
+    </script>
   </body>
 </html>
