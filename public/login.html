@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>¡Bienvenido!-Hotel.com</title>
+        <link href="../assets/css/app.css" rel="stylesheet" />
+        <link href="../assets/css/auth.css" rel="stylesheet" />
+    </head>
+    <body>
+
+        <!-- BARRA SUPERIOR (copiada de index.html) -->
+        <div class="top-bar">
+            <div class="top-bar__container">
+                <div class="top-bar__left">
+                        <a class="logo" href="index.html">Hotel.com</a>
+                </div>
+                <div class="top-bar__right">
+                    <a class="top-bar__link" href="#">Eres profesional</a>
+                    <a class="top-bar__link" href="#">Viaja seguro</a>
+                    <a id="auth-btn" class="login-btn" href="login.html">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <main class="page-center">
+            <div class="auth-card">
+                <div id="messages" class="auth-messages"></div>
+
+                <!-- LOGIN GLOBAL -->
+                <div id="login" class="auth-panel">
+                    <h2>Iniciar Sesión</h2>
+                    <form id="loginForm">
+                        <input type="email" name="email" placeholder="Correo" required />
+                        <input type="password" name="password" placeholder="Contraseña" required />
+                        <button type="submit">Entrar</button>
+                    </form>
+                    <div class="switch" id="toRegister">¿No tienes cuenta? Regístrate</div>
+                </div>
+
+                <!-- REGISTRO GLOBAL -->
+                <div id="register" class="auth-panel" style="display:none;">
+                    <h2>Registrarse</h2>
+                    <form id="registerForm">
+                        <input type="email" name="email" placeholder="Correo" required />
+                        <input type="password" name="password" placeholder="Contraseña" required minlength="4" />
+                        <button type="submit">Crear Cuenta</button>
+                    </form>
+                    <div class="switch" id="toLogin">¿Ya tienes cuenta? Inicia sesión</div>
+                </div>
+            </div>
+        </main>
+
+        <script src="../assets/js/auth.js"></script>
+        <script src="../assets/js/session.js"></script>
+    </body>
+</html>
