@@ -27,7 +27,7 @@ if ($email === '' || $password === '') {
 }
 
 // Obtener usuario
-$stmt = $conn->prepare("SELECT id_usuario, password FROM usuarios WHERE email = ?");
+$stmt = $conn->prepare("SELECT id_usuario, password, rol FROM usuarios WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
@@ -38,7 +38,7 @@ if ($stmt->num_rows === 0) {
     die($err);
 }
 
-$stmt->bind_result($id_usuario, $pass_db);
+$stmt->bind_result($id_usuario, $pass_db, $rol);
 $stmt->fetch();
 
 // Soportar contraseñas hasheadas y sin hashear (migración gradual)
@@ -64,11 +64,19 @@ if (!$login_ok) {
 }
 
 $_SESSION['usuario'] = $id_usuario;
+$_SESSION['rol'] = $rol ?? 'usuario';  // Guardar rol en sesión
 
 if ($isAjax) {
-    echo json_encode(['success' => true]);
+    echo json_encode(['success' => true, 'rol' => $rol]);
     exit;
 }
 
-header("Location: ../public/index.html");
+// Redirigir según el rol
+if ($rol === 'administrador') {
+    header("Location: ../public/admin.html");
+} elseif ($rol === 'recepcionista') {
+    header("Location: ../public/recepcionista.html");
+} else {
+    header("Location: ../public/index.html");
+}
 exit;

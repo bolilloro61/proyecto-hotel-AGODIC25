@@ -15,13 +15,35 @@
       if(j.active){
         authBtn.innerText = 'Cerrar sesión';
         authBtn.href = '#';
-        // Añadir icono de perfil si no existe
+        
+        // Mostrar/ocultar pestañas de admin y recepcionista según rol (solo en index.html)
+        const adminTabs = document.getElementById('admin-tabs');
+        const recepTabs = document.getElementById('recep-tabs');
+        
+        if (adminTabs) {
+          if (j.rol === 'administrador') {
+            adminTabs.style.display = 'flex';
+          } else {
+            adminTabs.style.display = 'none';
+          }
+        }
+        
+        if (recepTabs) {
+          if (j.rol === 'recepcionista') {
+            recepTabs.style.display = 'flex';
+          } else {
+            recepTabs.style.display = 'none';
+          }
+        }
+        
+        // Añadir icono de perfil
         const parent = authBtn.parentElement;
         if (parent && !document.getElementById('profile-icon')) {
+          
           const icon = document.createElement('a');
           icon.id = 'profile-icon';
           icon.className = 'profile-icon';
-          icon.href = 'profile.html'; // página futura de perfil
+          icon.href = 'perfil.html';
           icon.setAttribute('aria-label', 'Perfil');
           icon.innerText = '👤';
           parent.insertBefore(icon, authBtn);

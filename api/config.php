@@ -17,5 +17,16 @@
         ],
         'base_url'=>$env['BASE_URL'],
         'upload_dir'=> __DIR__ . '/' . ($env['UPLOAD_DIR']),
+        // Mail configuration (read from .env)
+        'mail' => [
+            'use_smtp' => isset($env['MAIL_USE_SMTP']) ? filter_var($env['MAIL_USE_SMTP'], FILTER_VALIDATE_BOOLEAN) : false,
+            'host' => $env['MAIL_HOST'] ?? 'smtp.gmail.com',
+            'port' => isset($env['MAIL_PORT']) ? (int)$env['MAIL_PORT'] : 587,
+            'username' => $env['MAIL_USERNAME'] ?? ($env['MAIL_USER'] ?? ''),
+            'password' => $env['MAIL_PASSWORD'] ?? '',
+            'secure' => $env['MAIL_SECURE'] ?? 'tls',
+            'from_email' => $env['MAIL_FROM'] ?? ($env['MAIL_USERNAME'] ?? 'no-reply@localhost'),
+            'from_name' => $env['MAIL_FROM_NAME'] ?? 'Reserva Hotel'
+        ],
     ];
     
