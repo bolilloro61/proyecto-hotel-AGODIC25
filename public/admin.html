@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Hotel.com</title>
+    <link href="../assets/css/app.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f5f5;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 52px);
+        }
+
+        /* SIDEBAR */
+        .admin-sidebar {
+            background: #1a1a1a;
+            color: white;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            position: sticky;
+            top: 52px;
+            height: calc(100vh - 52px);
+        }
+
+        .admin-logo {
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 1rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ccc;
+            border: none;
+            background: none;
+            font-size: 0.95rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            background: #333;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #c41e3a;
+            color: white;
+        }
+
+        .nav-separator {
+            height: 1px;
+            background: #333;
+            margin: 1rem 0;
+        }
+
+        /* MAIN CONTENT */
+        .admin-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-user span {
+            color: #666;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            background: #a01830;
+        }
+
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* DASHBOARD */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-stat {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #c41e3a;
+        }
+
+        /* TABLAS */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-header h2 {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .btn-add {
+            padding: 0.75rem 1.5rem;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #a01830;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f9f9f9;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1a1a1a;
+            border-bottom: 2px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            margin: 0 0.25rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #0b7dda;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #da190b;
+        }
+
+        .btn-cancel {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #e68900;
+        }
+
+        .btn-servicios {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .btn-servicios:hover {
+            background: #7b1fa2;
+        }
+
+        /* BADGES */
+        .estado-badge, .plan-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .estado-pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .estado-confirmada {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .estado-cancelada {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .estado-pagado {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .estado-fallido {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .plan-estandar {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .plan-all-inclusive {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-admin {
+            background: #c41e3a;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-recepcionista {
+            background: #0066cc;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-cliente {
+            background: #28a745;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #1a1a1a;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .btn-close:hover {
+            color: #1a1a1a;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c41e3a;
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-primary {
+            background: #c41e3a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #a01830;
+        }
+
+        .btn-cancel-modal {
+            background: #ddd;
+            color: #1a1a1a;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-cancel-modal:hover {
+            background: #ccc;
+        }
+
+        .empty-message {
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .acceso-denegado {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 52px);
+        }
+
+        .acceso-denegado-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        .acceso-denegado-card h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .acceso-denegado-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .acceso-denegado-card a {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #c41e3a;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .acceso-denegado-card a:hover {
+            background: #a01830;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: fixed;
+                left: 0;
+                top: 52px;
+                height: calc(100vh - 52px);
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                width: 200px;
+                z-index: 999;
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BARRA SUPERIOR (igual a index.html) -->
+    <div class="top-bar">
+        <div class="top-bar__container">
+            <div class="top-bar__left">
+                <a class="logo" href="index.html">
+                    Hotel.com
+                </a>
+            </div>
+            <div class="top-bar__right">
+                <a class="top-bar__link" href="#">
+                    Admin Panel
+                </a>
+                <a class="top-bar__link" href="index.html">
+                    Volver a Inicio
+                </a>
+                <a id="auth-btn" class="login-btn" href="login.html">
+                    Iniciar sesión
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">🏨 Admin</div>
+            <nav class="admin-nav">
+                <button class="nav-item active" data-section="dashboard">📊 Dashboard</button>
+                <button class="nav-item" data-section="habitaciones">🛏️ Habitaciones</button>
+                <button class="nav-item" data-section="reservaciones">📅 Reservaciones</button>
+                <button class="nav-item" data-section="usuarios">👥 Usuarios</button>
+                <div class="nav-separator"></div>
+                <a class="nav-item" href="index.html" style="text-decoration: none; color: inherit;">← Volver</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="admin-content">
+            <!-- HEADER -->
+            <div class="admin-header">
+                <h1 id="section-title">Dashboard</h1>
+                <div class="admin-user">
+                    <span id="admin-email">Admin</span>
+                    <button class="btn-logout" onclick="cerrarSesionAdmin()">Cerrar Sesión</button>
+                </div>
+            </div>
+
+            <!-- SECTIONS -->
+            <div class="admin-main">
+                <!-- DASHBOARD SECTION -->
+                <section class="section active" id="dashboard">
+                    <div id="dashboard-content">Cargando dashboard...</div>
+                </section>
+
+                <!-- HABITACIONES SECTION -->
+                <section class="section" id="habitaciones">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>Gestión de Habitaciones</h2>
+                            <button class="btn-add" onclick="abrirModalHabitacion()">+ Nueva Habitación</button>
+                        </div>
+                        <div id="habitaciones-table-content">
+                            <p class="empty-message">Cargando habitaciones...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RESERVACIONES SECTION -->
+                <section class="section" id="reservaciones">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>Gestión de Reservaciones</h2>
+                            <button class="btn-add" onclick="abrirModalReserva()">+ Nueva Reservación</button>
+                        </div>
+                        <div id="reservaciones-table-content">
+                            <p class="empty-message">Cargando reservaciones...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- USUARIOS SECTION -->
+                <section class="section" id="usuarios">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>Gestión de Usuarios</h2>
+                        </div>
+                        <div id="usuarios-table-content">
+                            <p class="empty-message">Cargando usuarios...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HABITACIÓN -->
+    <div id="modal-habitacion" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-habitacion-title">Nueva Habitación</h2>
+                <button class="btn-close" onclick="cerrarModalHabitacion()">×</button>
+            </div>
+            <form onsubmit="guardarHabitacion(event)" id="form-habitacion">
+                <div class="form-group">
+                    <label>Número de Habitación *</label>
+                    <input type="number" name="numero_habitacion" id="h_numero" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo *</label>
+                    <select name="tipo" id="h_tipo" required>
+                        <option value="">Selecciona tipo</option>
+                        <option value="estandar">Estándar</option>
+                        <option value="doble">Doble</option>
+                        <option value="suite">Suite</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" name="nombre_habitacion" id="h_nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Capacidad *</label>
+                    <select name="capacidad" id="h_capacidad" required>
+                        <option value="">Selecciona capacidad</option>
+                        <option value="1 persona">1 persona</option>
+                        <option value="2 personas">2 personas</option>
+                        <option value="3 personas">3 personas</option>
+                        <option value="4 personas">4 personas</option>
+                        <option value="5 personas">5 personas</option>
+                        <option value="6 personas">6 personas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Precio por Noche *</label>
+                    <input type="number" name="precio" id="h_precio" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea name="descripcion" id="h_descripcion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Imagen (URL)</label>
+                    <input type="text" name="imagen" id="h_imagen">
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Guardar</button>
+                    <button type="button" class="btn-cancel-modal" onclick="cerrarModalHabitacion()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL RESERVACIÓN -->
+    <div id="modal-reserva" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-reserva-title">Nueva Reservación</h2>
+                <button class="btn-close" onclick="cerrarModalReserva()">×</button>
+            </div>
+            <form onsubmit="guardarReserva(event)" id="form-reserva">
+                <div class="form-group">
+                    <label>Habitación *</label>
+                    <select name="id_habitacion" id="r_habitacion" required>
+                        <option value="">Selecciona habitación</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" name="nombre_completo" id="r_nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="correo_electronico" id="r_email" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono *</label>
+                    <input type="tel" name="telefono" id="r_telefono" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Entrada *</label>
+                    <input type="date" name="fecha_entrada" id="r_entrada" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Salida *</label>
+                    <input type="date" name="fecha_salida" id="r_salida" required>
+                </div>
+                <div class="form-group">
+                    <label>Plan *</label>
+                    <select name="plan" id="r_plan" required onchange="mostrarServiciosCondicional()">
+                        <option value="estandar">Estándar</option>
+                        <option value="all_inclusive">All Inclusive</option>
+                    </select>
+                </div>
+                <div class="form-group" id="servicios-form-group" style="display: none;">
+                    <label>Servicios Incluidos</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_piscina" name="piscina">
+                            <span>Piscina</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_spa" name="spa">
+                            <span>Spa</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_barra_libre" name="barra_libre">
+                            <span>Barra Libre</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_comida" name="comida">
+                            <span>Comida</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_desayuno" name="desayuno">
+                            <span>Desayuno</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="r_cena" name="cena">
+                            <span>Cena</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select name="estado" id="r_estado">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmada">Confirmada</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Comentarios</label>
+                    <textarea name="comentarios" id="r_comentarios"></textarea>
+                </div>
+                <input type="hidden" id="r_id_reserva">
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Guardar</button>
+                    <button type="button" class="btn-cancel-modal" onclick="cerrarModalReserva()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIOS -->
+    <div id="modal-servicios" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Servicios</h2>
+                <button class="btn-close" onclick="cerrarModalServicios()">×</button>
+            </div>
+            <form onsubmit="guardarServicios(event)">
+                <input type="hidden" id="servicios-reserva-id">
+                <div class="form-group">
+                    <label>Plan *</label>
+                    <select id="servicios-plan" name="plan" onchange="actualizarServiciosDisponibles()" required>
+                        <option value="estandar">Estándar</option>
+                        <option value="all_inclusive">All Inclusive</option>
+                    </select>
+                </div>
+                <div class="form-group" id="servicios-container">
+                    <label>Servicios Adicionales (Estándar)</label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="piscina" data-costo="150">
+                        <span>Piscina (+$150)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="spa" data-costo="300">
+                        <span>Spa (+$300)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="barra_libre" data-costo="200">
+                        <span>Barra Libre (+$200)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="comida" data-costo="250">
+                        <span>Comida (+$250)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="desayuno" data-costo="120">
+                        <span>Desayuno (+$120)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" name="servicios" value="cena" data-costo="200">
+                        <span>Cena (+$200)</span>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Guardar</button>
+                    <button type="button" class="btn-cancel-modal" onclick="cerrarModalServicios()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/admin.js"></script>
+    <script src="../assets/js/session.js"></script>
+</body>
+</html>

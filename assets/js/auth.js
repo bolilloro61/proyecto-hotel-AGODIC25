@@ -29,7 +29,7 @@
     });
   }
 
-  // Login AJAX
+  // Login GLOBAL (único login que maneja todos los roles)
   const loginForm = document.getElementById('loginForm');
   if(loginForm){
     loginForm.addEventListener('submit', async (e)=>{
@@ -37,11 +37,22 @@
       clearMessages();
       const data = new FormData(loginForm);
       try{
-          const res = await fetch('../controllers/login.php', { method: 'POST', body: data, headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+        const res = await fetch('../controllers/login.php', { method: 'POST', body: data, headers: { 'X-Requested-With': 'XMLHttpRequest' } });
         const txt = await res.text();
         try{
           const json = JSON.parse(txt);
-          if(json.success){ showMessage('Inicio de sesión correcto. Redirigiendo...', true); setTimeout(()=> window.location = 'index.html', 700); }
+          if(json.success){ 
+            showMessage('Inicio de sesión correcto. Redirigiendo...', true);
+            setTimeout(()=> {
+              if(json.rol === 'administrador') {
+                window.location = 'admin.html';
+              } else if(json.rol === 'recepcionista') {
+                window.location = 'recepcionista.html';
+              } else {
+                window.location = 'index.html';
+              }
+            }, 700);
+          }
           else showMessage(json.message || 'Error al iniciar sesión.');
         }catch(err){ showMessage(txt || 'Respuesta inesperada del servidor.'); }
       }catch(err){ showMessage('Error de conexión.'); }
@@ -67,7 +78,7 @@
     });
   }
 
-  // Export minimal helpers for other modules
+  // Export helpers for other modules
   window.__auth = { showMessage, clearMessages };
 
 })();
