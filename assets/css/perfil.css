@@ -1,0 +1,9 @@
+/* Perfil page minimal styles to avoid 404; extend as needed */
+.perfil-container { max-width: 980px; margin: 2rem auto; padding: 1rem; }
+.perfil-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+.perfil-info h2 { margin:0 0 .5rem 0; }
+.reserva-card { border:1px solid #e6e6e6; padding:1rem; border-radius:8px; margin-bottom:1rem; background:#fff }
+.btn { padding:.5rem .75rem; border-radius:4px; border:none }
+.btn-secondary { background:#6c757d; color:#fff }
+.btn-primary { background:#c41e3a; color:#fff }
+.modal { display:flex; align-items:center; justify-content:center; }

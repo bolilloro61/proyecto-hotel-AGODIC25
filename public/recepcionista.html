@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Recepcionista - Hotel.com</title>
+    <link href="../assets/css/app.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f5f5;
+        }
+
+        .recep-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 52px);
+        }
+
+        /* SIDEBAR */
+        .recep-sidebar {
+            background: #1a1a1a;
+            color: white;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            position: sticky;
+            top: 52px;
+            height: calc(100vh - 52px);
+        }
+
+        .recep-logo {
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+        }
+
+        .recep-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 1rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ccc;
+            border: none;
+            background: none;
+            font-size: 0.95rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            background: #333;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #c41e3a;
+            color: white;
+        }
+
+        .nav-separator {
+            height: 1px;
+            background: #333;
+            margin: 1rem 0;
+        }
+
+        /* MAIN CONTENT */
+        .recep-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recep-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recep-header h1 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .recep-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .recep-user span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .recep-body {
+            padding: 2rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* TABS */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* RESERVACIONES PENDIENTES */
+        .reservaciones-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .reservacion-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .reservacion-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .reservacion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .reservacion-header h3 {
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+        }
+
+        .estado-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .estado-pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .estado-confirmada {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .estado-cancelada {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .reservacion-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .info-item p {
+            color: #333;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .reservacion-servicios {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .servicios-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .servicios-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .servicio-tag {
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .reservacion-acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn-accion {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-confirmar {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-confirmar:hover {
+            background: #218838;
+        }
+
+        .btn-cancelar-res {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-cancelar-res:hover {
+            background: #c82333;
+        }
+
+        .btn-editar {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-editar:hover {
+            background: #e0a800;
+        }
+
+        /* FORMULARIO NUEVA RESERVACIÓN */
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c41e3a;
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn-primary {
+            background: #c41e3a;
+            color: white;
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #a01730;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #1a1a1a;
+        }
+
+        .close {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* ESTADOS */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .recep-container {
+                grid-template-columns: 1fr;
+            }
+
+            .recep-sidebar {
+                display: none;
+            }
+
+            .reservacion-info {
+                grid-template-columns: 1fr;
+            }
+
+            .reservacion-acciones {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BARRA SUPERIOR AZUL -->
+    <div class="top-bar">
+      <div class="top-bar__container">
+        <div class="top-bar__left">
+          <a class="logo" href="index.html"> Hotel.com</a>
+        </div>
+        <div class="top-bar__right">
+          <a class="top-bar__link" href="perfil.html">Mi Perfil</a>
+          <a class="top-bar__link" href="/proyecto-hotel-AGODIC25/controllers/logout.php">Cerrar Sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="recep-container">
+        <!-- SIDEBAR -->
+        <aside class="recep-sidebar">
+            <div class="recep-logo">Recepción</div>
+            <nav class="recep-nav">
+                <button class="nav-item active" onclick="cambiarTab('pendientes')">
+                    📋 Reservaciones Pendientes
+                </button>
+                <button class="nav-item" onclick="cambiarTab('confirmadas')">
+                    ✅ Reservaciones Confirmadas
+                </button>
+                    <button class="nav-item" onclick="cambiarTab('canceladas')">
+                        ❌ Reservaciones Canceladas
+                    </button>
+                <div class="nav-separator"></div>
+                <button class="nav-item" onclick="cambiarTab('nueva')">
+                    ➕ Nueva Reservación
+                </button>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="recep-content">
+            <div class="recep-header">
+                <h1>Panel de Recepción</h1>
+                <div class="recep-user">
+                    <span id="recep-email">usuario@hotel.com</span>
+                </div>
+            </div>
+
+            <div class="recep-body">
+                <!-- TAB: PENDIENTES -->
+                <div id="pendientes" class="tab-content active">
+                    <h2 style="margin-bottom: 1.5rem; color: #1a1a1a;">Reservaciones Pendientes de Confirmación</h2>
+                    <div id="pendientes-container" class="reservaciones-container">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No hay reservaciones pendientes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CONFIRMADAS -->
+                <div id="confirmadas" class="tab-content">
+                    <h2 style="margin-bottom: 1.5rem; color: #1a1a1a;">Reservaciones Confirmadas</h2>
+                    <div id="confirmadas-container" class="reservaciones-container">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No hay reservaciones confirmadas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CANCELADAS -->
+                <div id="canceladas" class="tab-content">
+                    <h2 style="margin-bottom: 1.5rem; color: #1a1a1a;">Reservaciones Canceladas</h2>
+                    <div id="canceladas-container" class="reservaciones-container">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No hay reservaciones canceladas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: NUEVA RESERVACIÓN -->
+                <div id="nueva" class="tab-content">
+                    <h2 style="margin-bottom: 1.5rem; color: #1a1a1a;">Crear Nueva Reservación</h2>
+                    <div class="form-container">
+                        <form id="form-nueva-reserva" onsubmit="guardarNuevaReserva(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nr_nombre">Nombre Completo *</label>
+                                    <input type="text" id="nr_nombre" name="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nr_email">Correo Electrónico *</label>
+                                    <input type="email" id="nr_email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nr_telefono">Teléfono *</label>
+                                    <input type="tel" id="nr_telefono" name="telefono" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nr_habitacion">Habitación *</label>
+                                    <select id="nr_habitacion" name="habitacion" required>
+                                        <option value="">Seleccionar habitación</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nr_entrada">Fecha de Entrada *</label>
+                                    <input type="date" id="nr_entrada" name="entrada" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nr_salida">Fecha de Salida *</label>
+                                    <input type="date" id="nr_salida" name="salida" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nr_plan">Plan *</label>
+                                    <select id="nr_plan" name="plan" onchange="mostrarServiciosNueva()">
+                                        <option value="estandar">Estándar</option>
+                                        <option value="all_inclusive">All Inclusive</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="servicios-nueva" style="display: none;">
+                                <label>Servicios Incluidos</label>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_piscina" name="piscina"> Piscina
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_spa" name="spa"> Spa
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_barra_libre" name="barra_libre"> Barra Libre
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_comida" name="comida"> Comida
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_desayuno" name="desayuno"> Desayuno
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" id="nr_cena" name="cena"> Cena
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nr_comentarios">Comentarios</label>
+                                <textarea id="nr_comentarios" name="comentarios" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="resetearFormulario()">Cancelar</button>
+                                <button type="submit" class="btn-primary">Crear Reservación</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR RESERVACIÓN -->
+    <div id="modal-editar-reserva" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Reservación</h2>
+                <button class="close" onclick="cerrarModal('modal-editar-reserva')">&times;</button>
+            </div>
+            <form id="form-editar-reserva" onsubmit="guardarEdicionReserva(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="er_nombre">Nombre Completo *</label>
+                        <input type="text" id="er_nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="er_email">Correo Electrónico *</label>
+                        <input type="email" id="er_email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="er_telefono">Teléfono *</label>
+                        <input type="tel" id="er_telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="er_habitacion">Habitación *</label>
+                        <select id="er_habitacion" required></select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="er_entrada">Fecha de Entrada *</label>
+                        <input type="date" id="er_entrada" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="er_salida">Fecha de Salida *</label>
+                        <input type="date" id="er_salida" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="er_plan">Plan *</label>
+                        <select id="er_plan" onchange="mostrarServiciosEdicion()">
+                            <option value="estandar">Estándar</option>
+                            <option value="all_inclusive">All Inclusive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" id="servicios-edicion" style="display: none;">
+                    <label>Servicios Incluidos</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_piscina"> Piscina
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_spa"> Spa
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_barra_libre"> Barra Libre
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_comida"> Comida
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_desayuno"> Desayuno
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="er_cena"> Cena
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="er_comentarios">Comentarios</label>
+                    <textarea id="er_comentarios" rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="cerrarModal('modal-editar-reserva')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ESTADO GLOBAL
+        let estadoRecepcionista = {
+            usuarioActual: null,
+            habitaciones: [],
+            reservas: [],
+            reservasEditando: null
+        };
+
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('recepcionista.js: DOMContentLoaded');
+            
+            // Verificar permisos de recepcionista
+            await verificarRecepcionista();
+            
+            // Cargar datos
+            await cargarHabitacionesRecep();
+            await cargarReservacionesRecep();
+            
+            // Actualizar cada 30 segundos
+            setInterval(cargarReservacionesRecep, 30000);
+        });
+
+        // VERIFICAR PERMISOS
+        async function verificarRecepcionista() {
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/obtener_usuario.php');
+                const data = await response.json();
+                
+                if (!data.ok || !data.usuario || data.usuario.rol !== 'recepcionista') {
+                    mostrarAccesoDenegado();
+                    return false;
+                }
+                
+                estadoRecepcionista.usuarioActual = data.usuario;
+                document.getElementById('recep-email').textContent = data.usuario.email;
+                return true;
+            } catch (err) {
+                console.error('Error verificando recepcionista:', err);
+                mostrarAccesoDenegado();
+                return false;
+            }
+        }
+
+        function mostrarAccesoDenegado() {
+            document.body.innerHTML = `
+                <div class="acceso-denegado">
+                    <div class="acceso-denegado-card">
+                        <h1>🚫</h1>
+                        <p>No tienes permisos para acceder al panel de recepción.</p>
+                        <a href="index.html" class="btn-primary" style="display: inline-block; margin-top: 1rem;">Volver al inicio</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // CARGAR HABITACIONES
+        async function cargarHabitacionesRecep() {
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/habitaciones.php');
+                const data = await response.json();
+                
+                // El controller devuelve { ok, data } o antiguamente { ok, habitaciones }
+                const lista = data.data || data.habitaciones || [];
+                if (data.ok && Array.isArray(lista)) {
+                    estadoRecepcionista.habitaciones = lista;
+                    actualizarSelectHabitacionesRecep();
+                } else {
+                    console.warn('No se recibieron habitaciones válidas:', data);
+                }
+            } catch (err) {
+                console.error('Error cargando habitaciones:', err);
+            }
+        }
+
+        function actualizarSelectHabitacionesRecep() {
+            const selectNueva = document.getElementById('nr_habitacion');
+            const selectEdicion = document.getElementById('er_habitacion');
+            
+            const options = estadoRecepcionista.habitaciones.map(h => 
+                `<option value="${h.id_habitacion}">${h.numero_habitacion} - ${h.tipo} ($${h.precio})</option>`
+            ).join('');
+            
+            selectNueva.innerHTML = '<option value="">Seleccionar habitación</option>' + options;
+            selectEdicion.innerHTML = '<option value="">Seleccionar habitación</option>' + options;
+        }
+
+        // CARGAR RESERVACIONES
+        async function cargarReservacionesRecep() {
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/admin_reservaciones.php');
+                const data = await response.json();
+
+                // El controlador puede devolver 'reservaciones' o 'data' según la versión
+                const raw = data.reservaciones || data.data || [];
+
+                if (data.ok && Array.isArray(raw)) {
+                    // Normalizar objetos para que el front espere las mismas propiedades
+                    estadoRecepcionista.reservas = raw.map(r => ({
+                        id_reserva: r.id_reserva,
+                        id_habitacion: r.id_habitacion,
+                        nombre_completo: r.nombre_completo,
+                        correo_electronico: r.correo_electronico,
+                        telefono: r.telefono,
+                        plan: r.plan || (r.plan ? r.plan : 'estandar'),
+                        fecha_entrada: r.fecha_entrada,
+                        fecha_salida: r.fecha_salida,
+                        estado: r.estado,
+                        servicios: r.servicios || '',
+                        comentarios: r.comentarios || '',
+                        // Construir campo legible 'habitacion' si el backend devuelve partes
+                        habitacion: (r.numero_habitacion ? (r.numero_habitacion + (r.nombre_habitacion ? (' - ' + r.nombre_habitacion) : '')) : (r.habitacion || ''))
+                    }));
+
+                    renderizarReservaciones();
+                }
+            } catch (err) {
+                console.error('Error cargando reservaciones:', err);
+            }
+        }
+
+        function renderizarReservaciones() {
+            const pendientes = estadoRecepcionista.reservas.filter(r => r.estado === 'pendiente');
+            const confirmadas = estadoRecepcionista.reservas.filter(r => r.estado === 'confirmada');
+            const canceladas = estadoRecepcionista.reservas.filter(r => r.estado === 'cancelada');
+
+            renderizarContenedor('pendientes-container', pendientes);
+            renderizarContenedor('confirmadas-container', confirmadas);
+            renderizarContenedor('canceladas-container', canceladas);
+        }
+
+        function renderizarContenedor(contenedorId, reservaciones) {
+            const contenedor = document.getElementById(contenedorId);
+            
+            if (reservaciones.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No hay reservaciones</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            contenedor.innerHTML = reservaciones.map(res => {
+                // Elegir clase de badge según estado
+                let badgeClass = 'estado-pendiente';
+                if (res.estado === 'confirmada') badgeClass = 'estado-confirmada';
+                if (res.estado === 'cancelada') badgeClass = 'estado-cancelada';
+
+                // Acciones: confirmar solo para pendientes, editar/cancelar no disponibles en canceladas
+                const btnConfirmar = res.estado === 'pendiente' ? `
+                    <button class="btn-accion btn-confirmar" onclick="confirmarReservacion(${res.id_reserva})">
+                        ✅ Confirmar
+                    </button>
+                ` : '';
+
+                const btnEditar = res.estado !== 'cancelada' ? `
+                    <button class="btn-accion btn-editar" onclick="abrirModalEdicion(${res.id_reserva})">
+                        ✏️ Editar
+                    </button>
+                ` : '';
+
+                const btnCancelar = res.estado !== 'cancelada' ? `
+                    <button class="btn-accion btn-cancelar-res" onclick="cancelarReservacion(${res.id_reserva})">
+                        ❌ Cancelar
+                    </button>
+                ` : '';
+
+                return `
+                <div class="reservacion-card">
+                    <div class="reservacion-header">
+                        <h3>${res.nombre_completo}</h3>
+                        <span class="estado-badge ${badgeClass}">
+                            ${res.estado.charAt(0).toUpperCase() + res.estado.slice(1)}
+                        </span>
+                    </div>
+                    
+                    <div class="reservacion-info">
+                        <div class="info-item">
+                            <label>Habitación</label>
+                            <p>${res.habitacion}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p>${escapeHtml(res.correo_electronico)}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Teléfono</label>
+                            <p>${escapeHtml(res.telefono)}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Plan</label>
+                            <p>${res.plan.charAt(0).toUpperCase() + res.plan.slice(1).replace('_', ' ')}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Entrada</label>
+                            <p>${new Date(res.fecha_entrada).toLocaleDateString('es-ES')}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Salida</label>
+                            <p>${new Date(res.fecha_salida).toLocaleDateString('es-ES')}</p>
+                        </div>
+                    </div>
+                    
+                    ${res.servicios ? `
+                        <div class="reservacion-servicios">
+                            <div class="servicios-title">Servicios: ${res.servicios}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${res.comentarios ? `
+                        <div style="margin: 1rem 0; padding: 1rem; background: #f0f0f0; border-radius: 4px;">
+                            <strong>Comentarios:</strong> ${escapeHtml(res.comentarios)}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="reservacion-acciones">
+                        ${btnConfirmar}
+                        ${btnEditar}
+                        ${btnCancelar}
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // CONFIRMAR RESERVACIÓN
+        async function confirmarReservacion(id) {
+            if (!confirm('¿Confirmar esta reservación?')) return;
+
+            try {
+                // Procesar el pago como "efectivo" en recepción para esta reserva.
+                // El controller 'procesar_pago.php' actualizará pagos.estado = 'pagado'
+                // y un trigger en la BD debería cambiar la reserva a 'confirmada'.
+                const respPago = await fetch('/proyecto-hotel-AGODIC25/controllers/procesar_pago.php', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_reserva: id, metodo: 'efectivo' })
+                });
+
+                const raw = await respPago.text();
+                console.log('procesar_pago response status:', respPago.status, 'raw:', raw);
+
+                let dataPago = null;
+                try {
+                    dataPago = JSON.parse(raw);
+                } catch (parseErr) {
+                    console.error('Error parsing procesar_pago response as JSON:', parseErr);
+                    mostrarMensaje('Respuesta inválida del servidor al procesar el pago: ' + raw, 'danger');
+                    return;
+                }
+
+                if (!dataPago.ok) {
+                    mostrarMensaje(dataPago.message || 'Error al procesar el pago', 'danger');
+                    return;
+                }
+
+                mostrarMensaje('Pago y reservación confirmados correctamente', 'success');
+                // Refrescar lista
+                cargarReservacionesRecep();
+
+            } catch (err) {
+                console.error('Error al confirmar y procesar pago:', err);
+                mostrarMensaje('Error al confirmar la reservación', 'danger');
+            }
+        }
+
+        // CANCELAR RESERVACIÓN
+        async function cancelarReservacion(id) {
+            if (!confirm('¿Cancelar esta reservación?')) return;
+            
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/admin_reservaciones.php?action=cancel', {
+                    method: 'DELETE',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_reserva: id })
+                });
+
+                const raw = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(raw);
+                } catch (err) {
+                    console.error('Respuesta inválida al cancelar (recepción):', raw);
+                    mostrarMensaje('Respuesta inválida del servidor', 'danger');
+                    return;
+                }
+
+                if (data.ok) {
+                    mostrarMensaje('Reservación cancelada', 'success');
+                    cargarReservacionesRecep();
+                } else {
+                    mostrarMensaje(data.message || data.mensaje || 'Error al cancelar', 'danger');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                mostrarMensaje('Error al cancelar la reservación', 'danger');
+            }
+        }
+
+        // CREAR NUEVA RESERVACIÓN
+        async function guardarNuevaReserva(e) {
+            e.preventDefault();
+            
+            const plan = document.getElementById('nr_plan').value;
+            let servicios = {};
+            if (plan === 'all_inclusive') {
+                servicios = { piscina:1, spa:1, barra_libre:1, comida:1, desayuno:1, cena:1 };
+            } else {
+                servicios = {
+                    piscina: document.getElementById('nr_piscina').checked ? 1 : 0,
+                    spa: document.getElementById('nr_spa').checked ? 1 : 0,
+                    barra_libre: document.getElementById('nr_barra_libre').checked ? 1 : 0,
+                    comida: document.getElementById('nr_comida').checked ? 1 : 0,
+                    desayuno: document.getElementById('nr_desayuno').checked ? 1 : 0,
+                    cena: document.getElementById('nr_cena').checked ? 1 : 0
+                };
+            }
+            
+            const formData = {
+                id_habitacion: document.getElementById('nr_habitacion').value,
+                nombre_completo: document.getElementById('nr_nombre').value,
+                correo_electronico: document.getElementById('nr_email').value,
+                telefono: document.getElementById('nr_telefono').value,
+                fecha_entrada: document.getElementById('nr_entrada').value,
+                fecha_salida: document.getElementById('nr_salida').value,
+                estado: 'pendiente',
+                plan: plan,
+                comentarios: document.getElementById('nr_comentarios').value,
+                servicios: servicios
+            };
+            
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/admin_reservaciones.php?action=create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    mostrarMensaje('Reservación creada exitosamente (Estado: Pendiente)', 'success');
+                    document.getElementById('form-nueva-reserva').reset();
+                    document.getElementById('servicios-nueva').style.display = 'none';
+                    await cargarReservacionesRecep();
+                    cambiarTab('pendientes');
+                } else {
+                    mostrarMensaje(data.mensaje || 'Error al crear la reservación', 'danger');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                mostrarMensaje('Error al crear la reservación', 'danger');
+            }
+        }
+
+        // EDITAR RESERVACIÓN
+        function abrirModalEdicion(id) {
+            const res = estadoRecepcionista.reservas.find(r => r.id_reserva === id);
+            if (!res) return;
+            
+            estadoRecepcionista.reservasEditando = id;
+            
+            document.getElementById('er_nombre').value = res.nombre_completo;
+            document.getElementById('er_email').value = res.correo_electronico;
+            document.getElementById('er_telefono').value = res.telefono;
+            document.getElementById('er_habitacion').value = res.id_habitacion;
+            document.getElementById('er_entrada').value = res.fecha_entrada;
+            document.getElementById('er_salida').value = res.fecha_salida;
+            document.getElementById('er_plan').value = res.plan;
+            document.getElementById('er_comentarios').value = res.comentarios || '';
+            
+            // Cargar servicios
+            if (res.servicios) {
+                const serviciosArray = res.servicios.split(', ').map(s => s.trim().toLowerCase().replace(' ', '_'));
+                document.getElementById('er_piscina').checked = serviciosArray.includes('piscina');
+                document.getElementById('er_spa').checked = serviciosArray.includes('spa');
+                document.getElementById('er_barra_libre').checked = serviciosArray.includes('barra_libre');
+                document.getElementById('er_comida').checked = serviciosArray.includes('comida');
+                document.getElementById('er_desayuno').checked = serviciosArray.includes('desayuno');
+                document.getElementById('er_cena').checked = serviciosArray.includes('cena');
+            }
+            
+            mostrarServiciosEdicion();
+            document.getElementById('modal-editar-reserva').classList.add('show');
+        }
+
+        async function guardarEdicionReserva(e) {
+            e.preventDefault();
+            
+            const plan = document.getElementById('er_plan').value;
+            let servicios = {};
+            if (plan === 'all_inclusive') {
+                servicios = { piscina:1, spa:1, barra_libre:1, comida:1, desayuno:1, cena:1 };
+            } else {
+                servicios = {
+                    piscina: document.getElementById('er_piscina').checked ? 1 : 0,
+                    spa: document.getElementById('er_spa').checked ? 1 : 0,
+                    barra_libre: document.getElementById('er_barra_libre').checked ? 1 : 0,
+                    comida: document.getElementById('er_comida').checked ? 1 : 0,
+                    desayuno: document.getElementById('er_desayuno').checked ? 1 : 0,
+                    cena: document.getElementById('er_cena').checked ? 1 : 0
+                };
+            }
+            
+            const formData = {
+                id_reserva: estadoRecepcionista.reservasEditando,
+                nombre_completo: document.getElementById('er_nombre').value,
+                correo_electronico: document.getElementById('er_email').value,
+                telefono: document.getElementById('er_telefono').value,
+                id_habitacion: document.getElementById('er_habitacion').value,
+                fecha_entrada: document.getElementById('er_entrada').value,
+                fecha_salida: document.getElementById('er_salida').value,
+                plan: plan,
+                comentarios: document.getElementById('er_comentarios').value,
+                servicios: servicios
+            };
+            
+            try {
+                const response = await fetch('/proyecto-hotel-AGODIC25/controllers/admin_reservaciones.php?action=update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    mostrarMensaje('Reservación actualizada exitosamente', 'success');
+                    cerrarModal('modal-editar-reserva');
+                    cargarReservacionesRecep();
+                } else {
+                    mostrarMensaje(data.mensaje || 'Error al actualizar', 'danger');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                mostrarMensaje('Error al actualizar la reservación', 'danger');
+            }
+        }
+
+        // SERVICIOS CONDICIONALES
+        function mostrarServiciosNueva() {
+            const plan = document.getElementById('nr_plan').value;
+            const serviciosDiv = document.getElementById('servicios-nueva');
+            
+            if (plan === 'all_inclusive') {
+                serviciosDiv.style.display = 'none';
+            } else {
+                serviciosDiv.style.display = 'block';
+                document.getElementById('nr_piscina').checked = false;
+                document.getElementById('nr_spa').checked = false;
+                document.getElementById('nr_barra_libre').checked = false;
+                document.getElementById('nr_comida').checked = false;
+                document.getElementById('nr_desayuno').checked = false;
+                document.getElementById('nr_cena').checked = false;
+            }
+        }
+
+        function mostrarServiciosEdicion() {
+            const plan = document.getElementById('er_plan').value;
+            const serviciosDiv = document.getElementById('servicios-edicion');
+            
+            if (plan === 'all_inclusive') {
+                serviciosDiv.style.display = 'block';
+            } else {
+                serviciosDiv.style.display = 'none';
+                document.getElementById('er_piscina').checked = false;
+                document.getElementById('er_spa').checked = false;
+                document.getElementById('er_barra_libre').checked = false;
+                document.getElementById('er_comida').checked = false;
+                document.getElementById('er_desayuno').checked = false;
+                document.getElementById('er_cena').checked = false;
+            }
+        }
+
+        // NAVEGACIÓN DE TABS
+        function cambiarTab(tabName) {
+            // Ocultar todos los tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remover active de nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // Mostrar tab seleccionado
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Marcar nav item como active
+            event.target.classList.add('active');
+            
+            // Establecer fecha mínima cuando se abre el tab de nueva reservación
+            if (tabName === 'tab-nueva') {
+                establecerFechaMinRecep();
+            } else if (tabName === 'tab-editar') {
+                establecerFechaMinRecep();
+            }
+        }
+
+        // Establecer fecha mínima permitida en inputs de fecha
+        function establecerFechaMinRecep() {
+            const ahora = new Date();
+            const horaActual = ahora.getHours();
+            
+            // Si ya pasaron las 12 PM, usar mañana como fecha mínima
+            if (horaActual >= 12) {
+                ahora.setDate(ahora.getDate() + 1);
+            }
+            
+            ahora.setHours(0, 0, 0, 0);
+            const year = ahora.getFullYear();
+            const month = String(ahora.getMonth() + 1).padStart(2, '0');
+            const day = String(ahora.getDate()).padStart(2, '0');
+            const fechaMinima = `${year}-${month}-${day}`;
+            
+            // Aplicar a todos los inputs de fecha
+            const inputsEntrada = document.querySelectorAll('[id$="_entrada"]');
+            const inputsSalida = document.querySelectorAll('[id$="_salida"]');
+            
+            inputsEntrada.forEach(input => input.setAttribute('min', fechaMinima));
+            inputsSalida.forEach(input => input.setAttribute('min', fechaMinima));
+        }
+
+        // UTILIDADES
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function resetearFormulario() {
+            document.getElementById('form-nueva-reserva').reset();
+            document.getElementById('servicios-nueva').style.display = 'none';
+        }
+
+        function mostrarMensaje(mensaje, tipo) {
+            const alerta = document.createElement('div');
+            alerta.className = `alert alert-${tipo}`;
+            alerta.textContent = mensaje;
+            
+            const body = document.querySelector('.recep-body');
+            body.insertBefore(alerta, body.firstChild);
+            
+            setTimeout(() => alerta.remove(), 4000);
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-editar-reserva');
+            if (event.target === modal) {
+                cerrarModal('modal-editar-reserva');
+            }
+        }
+    </script>
+</body>
+</html>
